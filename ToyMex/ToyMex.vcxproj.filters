@@ -27,7 +27,4 @@
   <ItemGroup>
     <Natvis Include="mxArrayWatch.natvis" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="UNLICENSE.txt" />
-  </ItemGroup>
 </Project>

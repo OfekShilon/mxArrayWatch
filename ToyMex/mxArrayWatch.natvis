@@ -24,13 +24,12 @@
       </ArrayItems>
       
       <!--Dense Matrices-->
-      <ArrayItems Condition="classID!=2 &amp;&amp; classID!=4 &amp;&amp; dataflags.sparse==false">
+      <ArrayItems Condition="classID!=1 &amp;&amp; classID!=2 &amp;&amp; classID!=4 &amp;&amp; dataflags.sparse==false">
         <!-- 2D double data -->
         <Direction>Backward</Direction>
         <Rank>number_of_dims</Rank>
         <Size Condition="number_of_dims==2">(&amp;rowdim)[$i]</Size>
         <Size Condition="number_of_dims!=2">((size_t*)rowdim)[$i]</Size>
-        <ValuePointer Condition="classID==1">(mxArray_tag*)pData</ValuePointer>
         <ValuePointer Condition="classID==6">(double*)pData</ValuePointer>
         <ValuePointer Condition="classID==7">(float*)pData</ValuePointer>
         <ValuePointer Condition="classID==8">(char*)pData</ValuePointer>
@@ -43,8 +42,17 @@
         <ValuePointer Condition="classID==15">(unsigned __int64*)pData</ValuePointer>
       </ArrayItems>
 
+      <!--cell-->
+      <ArrayItems Condition="classID==1">
+        <Direction>Backward</Direction>
+        <Rank>number_of_dims</Rank>
+        <Size Condition="number_of_dims==2">(&amp;rowdim)[$i]</Size>
+        <Size Condition="number_of_dims!=2">((size_t*)rowdim)[$i]</Size>
+        <ValuePointer>(mxArray_tag*)((mxArray_tag*)pData)->crosslink_fwd</ValuePointer>
+      </ArrayItems>
+      
       <!--Imaginary component-->
-      <ArrayItems Condition="classID!=2 &amp;&amp; classID!=4 &amp;&amp;pimag_data!= nullptr &amp;&amp; dataflags.sparse==false">
+      <ArrayItems Condition="classID!=1  &amp;&amp; classID!=4 &amp;&amp; classID!=4 &amp;&amp;pimag_data!= nullptr &amp;&amp; dataflags.sparse==false">
         <!-- 2D double data -->
         <Direction>Backward</Direction>
         <Rank>number_of_dims</Rank>
@@ -74,12 +82,12 @@
       </ArrayItems>
       <Item Condition="dataflags.sparse==true" Name="--Sparse row idx--">""</Item>
       <ArrayItems Condition="dataflags.sparse==true">
-        <Size>jcptr[rowdim]</Size>
+        <Size>jcptr[coldim]</Size>
         <ValuePointer>irptr</ValuePointer>
       </ArrayItems>
       <Item Condition="dataflags.sparse==true" Name="--Sparse data--">""</Item>
       <ArrayItems Condition="dataflags.sparse==true">
-        <Size>jcptr[rowdim]</Size>
+        <Size>jcptr[coldim]</Size>
         <ValuePointer Condition="classID==6">(double*)pData</ValuePointer>
         <ValuePointer Condition="classID==7">(float*)pData</ValuePointer>
         <ValuePointer Condition="classID==8">(char*)pData</ValuePointer>

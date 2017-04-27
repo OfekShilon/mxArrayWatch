@@ -87,10 +87,9 @@
     <ClInclude Include="mxArrayWatch.h" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="mxArrayWatch.natvis" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="UNLICENSE.txt" />
+    <Natvis Include="mxArrayWatch.natvis">
+      <SubType>Designer</SubType>
+    </Natvis>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
